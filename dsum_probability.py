@@ -2,8 +2,9 @@ import functools # import functools to act on or return other functions
 import numpy as np 
 
 @functools.lru_cache(maxsize=None) # decorator to wrap our probability function for caching
-def probability(m: int, n: int, num_faces: int = 6) -> float:
+def probability(m: int, n: int) -> float:
     
+   num_faces = 6 
    max_m = n * num_faces # maximum sum one can get for rolling n dice 
    min_m = n
    
