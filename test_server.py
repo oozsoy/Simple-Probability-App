@@ -1,7 +1,7 @@
 import requests
 import time
 
-BASE_URL = "http://127.0.0.1:8000"
+SERVER_URL = "http://127.0.0.1:8000"
 
 # Utility function to measure request time
 def measure_request_time(endpoint, params):
@@ -12,7 +12,7 @@ def measure_request_time(endpoint, params):
 
 # Test probability endpoint with n and m parameters
 def test_probability(n, m):
-    endpoint = f"{BASE_URL}/probability"
+    endpoint = f"{SERVER_URL}/probability"
     params = {"n": n, "m": m}
     
     response = requests.get(endpoint, params=params)
