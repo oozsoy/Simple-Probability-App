@@ -15,17 +15,14 @@ logger = logging.getLogger(__name__)
 
 @app.get("/probability")
 async def get_probability(
-    n: int = Query(..., description="Number of dice", ge=0),
-    m: int = Query(..., description="Desired sum", ge=0)
+    n: int = Query(..., description="Number of dices", ge=0), # use Query to validate the input data, if the query input does not satisfy the requirements it 
+    m: int = Query(..., description="Desired sum", ge=0)      # it automatically throws a jsonified error.   
 ):
-    if m < n or m > 6 * n:
-        raise HTTPException(status_code=400, detail="Invalid sum for given number of dice and faces")
-
     # processing time
     time.sleep(5)
 
-    prob = probability(m, n)
-    logger.info(f"Probability of getting the sum S={m} calculated for n={n}, 6 faced dice(s): {prob}")
+    prob = probability(m, n) # get the probability 
+    logger.info(f"Probability of getting the sum S={m} calculated for n={n}, 6 faced dice(s): {prob}") #logging in the terminal, each time we send a request 
     return {"probability": prob}
 
 def handle_sigterm(*args):
