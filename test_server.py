@@ -1,6 +1,14 @@
 import requests
+import time
 
 BASE_URL = "http://127.0.0.1:8000"
+
+# Utility function to measure request time
+def measure_request_time(endpoint, params):
+    start_time = time.time()
+    response = requests.get(endpoint, params=params)
+    end_time = time.time()
+    return response, end_time - start_time
 
 # Test probability endpoint with n and m parameters
 def test_probability(n, m):
@@ -8,8 +16,9 @@ def test_probability(n, m):
     params = {"n": n, "m": m}
     
     response = requests.get(endpoint, params=params)
+    _, duration = measure_request_time(endpoint, params)
 
-    print(f"Request sent to {endpoint} with params {params}.\n Response: {response.text}")
+    print(f"Probability request with params {params} took {duration:.2f} seconds.\n Response: {response.text}")
     
 
 if __name__ == "__main__":
