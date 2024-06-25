@@ -3,6 +3,8 @@ import time
 import signal
 import threading
 import logging
+import uvicorn
+import os
 
 from dsum_probability import probability
 
@@ -25,12 +27,20 @@ async def get_probability(
     logger.info(f"Probability of getting the sum S={m} calculated for n={n}, 6 faced dice(s): {prob}") #logging in the terminal, each time we send a request 
     return {"probability": prob}
 
-def handle_sigterm(*args):
-    print("Received SIGTERM. Shutting down gracefully.")
-    threading.Thread(target=app.shutdown).start()
+@app.on_event("shutdown")
+def shutdown_event():
+    logger.info("Shutting down gracefully...")
 
-signal.signal(signal.SIGTERM, handle_sigterm)
+def handle_sigterm(signal_number, frame):
+    logger.info("Received SIGTERM. Shutting down gracefully.")
+    raise KeyboardInterrupt
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    # Log the PID
+    pid = os.getpid()
+    signal.signal(signal.SIGTERM, handle_sigterm)
+    try:
+        uvicorn.run(app, host="127.0.0.1", port=8000)
+    except KeyboardInterrupt:
+        logger.info("Server stopped gracefully.")
+    
