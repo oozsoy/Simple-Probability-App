@@ -1,6 +1,6 @@
-# test script for the probability function we define in dsum_probability scripy
+# test script for the probability function we define in sum_probability script
 
-from dsum_probability import probability  
+from sum_probability import probability  
 
 def test_probability():
     test_cases = [

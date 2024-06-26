@@ -18,7 +18,7 @@ def test_probability(n, m):
     response = requests.get(endpoint, params=params)
     _, duration = measure_request_time(endpoint, params)
 
-    print(f"Probability request with params {params} took {duration:.2f} seconds.\n Response: {response.text}")
+    print(f"Probability request with params {params} took {duration:.1f} seconds.\n Response: {response.text}")
     
 
 if __name__ == "__main__":
@@ -28,6 +28,7 @@ if __name__ == "__main__":
     test_probability('a', 53) # invalid entry
     test_probability(1, 7) # test zero probability case 
     test_probability(10, 53) # test a largish number 
+    test_probability(30, 123) # test a largish number
     
     
     

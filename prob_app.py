@@ -6,7 +6,7 @@ import logging
 import uvicorn
 import os
 
-from dsum_probability import probability
+from sum_probability import probability
 
 # Initialize the app
 app = FastAPI()
